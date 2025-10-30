@@ -1,0 +1,141 @@
+<!DOCTYPE html> 
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Login Form</title>
+
+<style>
+    body {
+        font-family: Arial, sans-serif;
+        background-color: #eef3fa;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+    }
+
+    .form-container {
+        background-color: #fff;
+        padding: 25px 30px;
+        border-radius: 10px;
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+        width: 350px;
+    }
+
+    h2 {
+        text-align: center;
+        color: #2c3e50;
+        margin-bottom: 20px;
+    }
+
+    label {
+        font-weight: bold;
+        display: block;
+        margin-top: 10px;
+        color: #333;
+    }
+
+    input {
+        width: 100%;
+        padding: 10px;
+        margin-top: 5px;
+        border: 1px solid #ccc;
+        border-radius: 6px;
+        box-sizing: border-box;
+    }
+
+    input:focus {
+        border-color: #0077b5;
+        outline: none;
+    }
+
+    button {
+        background-color: #0077b5;
+        color: white;
+        border: none;
+        padding: 10px;
+        width: 100%;
+        margin-top: 20px;
+        border-radius: 6px;
+        cursor: pointer;
+        font-weight: bold;
+        font-size: 15px;
+    }
+
+    button:hover {
+        background-color: #005f8a;
+    }
+
+    .message {
+        text-align: center;
+        color: green;
+        font-weight: bold;
+        margin-top: 15px;
+    }
+</style>
+</head>
+ 
+<body>
+
+<div class="form-container">
+    <h2>User Login</h2>
+    <form id="loginForm">
+        <label>First Name</label>
+        <input type="text" id="firstName" placeholder="Enter first name" required>
+
+        <label>Last Name</label>
+        <input type="text" id="lastName" placeholder="Enter last name" required>
+
+        <label>Email or Phone</label>
+        <input type="text" id="contact" placeholder="Enter email or phone number" required>
+
+        <label>Password</label>
+        <input type="password" id="password" placeholder="Enter your password" required>
+
+        <button type="submit">Login</button> 
+    </form>
+ 
+    <p class="message" id="message"></p>
+</div>
+
+<script>
+document.getElementById("loginForm").addEventListener("submit", function(event) {
+    event.preventDefault();
+
+    const firstName = document.getElementById("firstName").value.trim();
+    const lastName = document.getElementById("lastName").value.trim();
+    const contact = document.getElementById("contact").value.trim();
+    const password = document.getElementById("password").value.trim();
+    const message = document.getElementById("message");
+
+    // Simple validation
+    if (!firstName || !lastName || !contact || !password) {
+        message.style.color = "red";
+        message.textContent = "Please fill out all fields.";
+        return;
+    }
+
+    // Check if contact is email or phone
+    const emailPattern = /^[^ ]+@[^ ]+\.[a-z]{2,3}$/;
+    const phonePattern = /^[0-9]{10}$/;
+
+    if (!emailPattern.test(contact) && !phonePattern.test(contact)) {
+        message.style.color = "red";
+        message.textContent = "Enter a valid email or 10-digit phone number.";
+        return;
+    }
+
+    // Successful login message
+    message.style.color = "green";
+    message.textContent = `Welcome, ${firstName} ${lastName}! Redirecting...`;
+
+    // Redirect to profile page (index.html) after 2 seconds
+    setTimeout(() => {
+        window.location.href = "index.html";
+    }, 2000);
+});
+</script>
+
+</body>
+</html>
